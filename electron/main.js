@@ -3,7 +3,7 @@
  * @Author: hexueying
  * @Date: 2025-03-17 17:26:31
  * @LastEditors: hexueying
- * @LastEditTime: 2025-03-18 16:49:12
+ * @LastEditTime: 2025-03-19 13:43:45
  * @FilePath: main.js
  */
 const { app, BrowserWindow,Menu  } = require('electron')
@@ -21,8 +21,8 @@ const createWindow = () => {
  
   const env = app.isPackaged ? "production" : "development";
   const indexHtml = {
-    // development: "http://localhost:5173", // 开发环境
-    development: "http://localhost:3100", // 开发环境
+    development: "http://localhost:5173", // 开发环境
+    // development: "http://localhost:3100", // 开发环境
     production: path.join(__dirname, "../dist/index.html"), // 生产环境
   };
  
