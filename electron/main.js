@@ -3,7 +3,7 @@
  * @Author: hexueying
  * @Date: 2025-03-17 17:26:31
  * @LastEditors: hexueying
- * @LastEditTime: 2025-03-21 11:02:44
+ * @LastEditTime: 2025-03-21 11:36:03
  * @FilePath: main.js
  */
 const { app, BrowserWindow,Menu  } = require('electron')
@@ -28,6 +28,14 @@ const createWindow = () => {
   };
  
   mainWin.loadURL(indexHtml[env]);
+
+  // -------------------加载一个模态窗口start-------------------------
+  const child = new BrowserWindow({ parent: mainWin, modal: true, show: false,width:800,height:400 })
+  child.loadURL('https://www.baidu.com/')
+  child.once('ready-to-show', () => {
+    child.show()
+  })
+  // -------------------加载一个模态窗口end-------------------------
 }
  
 // 准备完成调用创建方法
