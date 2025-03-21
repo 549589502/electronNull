@@ -1,30 +1,47 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
+<!--
+ * @Description: 
+ * @Author: hexueying
+ * @Date: 2025-03-19 13:50:20
+ * @LastEditors: hexueying
+ * @LastEditTime: 2025-03-20 11:31:23
+ * @FilePath: App.vue
+-->
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <!-- <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/detail/1">Detail 1</router-link> |
+    <router-link to="/detail/2">Detail 2</router-link>
+  </nav> -->
+
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <keep-alive :include="includeComponents">
+        <component :is="Component" :key="route.fullPath" />
+      </keep-alive>
+    </transition>
+  </router-view>
+  
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+
+const store = useStore()
+const route = useRoute()
+
+// 动态缓存列表
+const includeComponents = computed(() => store.state.cacheViews)
+</script>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
